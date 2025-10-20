@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jagran Epaper Downloader - One Click</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+        #instructions {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+        }
+        #instructions.show { display: block; }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .step-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-num {
+            background: white;
+            color: #667eea;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .copy-btn {
+            background: #00ff88;
+            color: #222;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .copy-btn:active { transform: scale(0.95); }
+        .emoji { font-size: 50px; text-align: center; margin-bottom: 20px; }
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            h1 { font-size: 28px; }
+            .emoji { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">📰</div>
+        <h1>Jagran Epaper Downloader</h1>
+        <div class="subtitle">High-resolution PDF • All pages • One click</div>
+        
+        <form id="downloadForm">
+            <div class="form-group">
+                <label>📍 Select City:</label>
+                <select id="city" required>
+                    <option value="lucknow">Lucknow</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="kanpur">Kanpur</option>
+                    <option value="patna">Patna</option>
+                    <option value="varanasi">Varanasi</option>
+                    <option value="agra">Agra</option>
+                    <option value="allahabad">Allahabad</option>
+                    <option value="meerut">Meerut</option>
+                    <option value="gorakhpur">Gorakhpur</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>📅 Date (DD-Mon-YYYY):</label>
+                <input type="text" id="date" value="20-Oct-2025" required placeholder="20-Oct-2025">
+            </div>
+            
+            <div class="form-group">
+                <label>⚙️ Quality:</label>
+                <select id="quality" required>
+                    <option value="good">Good Quality (~50-100MB, Fast)</option>
+                    <option value="max">Maximum Quality (~200-400MB, Slow)</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                🚀 Start Download
+            </button>
+        </form>
+        
+        <div id="instructions">
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-num">1</span>
+                    <span>New Tab Opening...</span>
+                </div>
+                <p style="font-size: 14px; opacity: 0.9;">A new tab with the epaper will open in 2 seconds.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-num">2</span>
+                    <span>Copy This Code</span>
+                </div>
+                <p style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Click the button below to copy the download script:</p>
+                <button class="copy-btn" onclick="copyScript()">📋 Copy Download Script</button>
+                <div id="copyStatus" style="margin-top: 10px; font-size: 13px; display: none;">✅ Copied to clipboard!</div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-num">3</span>
+                    <span>Open Console & Paste</span>
+                </div>
+                <p style="font-size: 14px; opacity: 0.9; line-height: 1.6;">
+                    <strong>Desktop:</strong> Press <kbd style="background: rgba(0,0,0,0.3); padding: 3px 6px; border-radius: 4px;">F12</kbd> or <kbd style="background: rgba(0,0,0,0.3); padding: 3px 6px; border-radius: 4px;">Ctrl+Shift+J</kbd><br>
+                    <strong>Mobile Chrome:</strong> Type <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">chrome://inspect</code> in address bar<br>
+                    <strong>Mobile Safari:</strong> Enable Web Inspector in Settings → Safari → Advanced
+                </p>
+                <p style="font-size: 14px; opacity: 0.9; margin-top: 10px;">
+                    Paste the code in the console and press Enter. The PDF will download automatically!
+                </p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="resetForm()">
+                ⬅️ Back to Form
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const downloadScript = `(async function(){const d=document.createElement('div');d.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2147483647;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:40px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.8);font-family:Arial,sans-serif;min-width:400px;text-align:center';d.innerHTML='<div style="font-size:24px;font-weight:bold;margin-bottom:10px;">📥 Downloading</div><div id="st">Starting...</div><div style="width:100%;height:8px;background:rgba(255,255,255,0.3);border-radius:4px;margin-top:15px;overflow:hidden;"><div id="pf" style="width:0%;height:100%;background:#00ff88;transition:width 0.3s;"></div></div><div id="et" style="font-size:12px;margin-top:10px;"></div>';document.body.appendChild(d);const st=document.getElementById('st'),pf=document.getElementById('pf'),et=document.getElementById('et');function u(t){st.textContent=t}function p(c,t){pf.style.width=Math.round(c/t*100)+'%'}['abc=0171b7fe7d7ef4d295546bb399f7ccd4','alc=1','adshow=true','abcuser=authenticated','jg_l=11a98374ebec8e0c7a54751d2161804d'].forEach(c=>document.cookie=c+'; path=/; max-age=86400');['.paid-col','.login-col','.close-btn','.news_toggle_overlay','.overlay','.notice-container','.news_toggle','.login-overlay'].forEach(s=>document.querySelectorAll(s).forEach(e=>e.remove()));document.body.style.overflow='auto';function g(){const i=[],n=new Set();document.querySelectorAll('img[data-src*="EpaperImages"]').forEach(m=>{let r=m.getAttribute('data-src');if(r&&r.includes('EpaperImages')){const f=r.split('/').pop();if(f.includes('-pg')||f.match(/pg\\d+/)){r=r.replace('ss.png','.png');const x=r.split('/');let y=x[x.length-1];if(!y.startsWith('M-')){y='M-'+y;x[x.length-1]=y;r=x.join('/')}if(!n.has(r)){n.add(r);i.push(r)}}}});i.sort((a,b)=>{const A=parseInt(a.match(/pg(\\d+)/)?.[1]||0),B=parseInt(b.match(/pg(\\d+)/)?.[1]||0);return A-B});return i}function l(){return new Promise((r,j)=>{if(window.jspdf){r();return}u('Loading PDF...');const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=()=>r();s.onerror=()=>j(new Error('Failed'));document.head.appendChild(s)})}function o(r){return new Promise((v,j)=>{const m=new Image();m.crossOrigin='anonymous';m.onload=()=>v(m);m.onerror=()=>j();m.src=r})}function c(m){return new Promise(r=>{const n=document.createElement('canvas');n.width=m.naturalWidth;n.height=m.naturalHeight;const x=n.getContext('2d',{alpha:false});x.imageSmoothingEnabled=false;x.fillStyle='#FFF';x.fillRect(0,0,n.width,n.height);x.drawImage(m,0,0);r({dataUrl:n.toDataURL('image/png',1.0),width:n.width,height:n.height})})}await l();u('Detecting...');await new Promise(r=>setTimeout(r,2000));const i=g(),t=i.length;if(!t){u('❌ No pages');d.style.background='red';return}u('Found '+t+' pages');await new Promise(r=>setTimeout(r,1000));const{jsPDF}=window.jspdf;const f=await o(i[0]),fp=await c(f),D=96,M=25.4,W=(fp.width/D)*M,H=(fp.height/D)*M,P=new jsPDF({orientation:'portrait',unit:'mm',format:[W,H],compress:QUALITY!=='max'});const T=Date.now();let a=0;for(let n=0;n<t;n++){u('Processing '+(n+1)+'/'+t);p(n+1,t);if(n>0){const e=(Date.now()-T)/1000,v=e/n,m=(t-n)*v;et.textContent='ETA: '+Math.floor(m/60)+'m '+Math.floor(m%60)+'s'}try{const m=await o(i[n]),x=await c(m);if(a>0)P.addPage([W,H],'portrait');P.addImage(x.dataUrl,'PNG',0,0,W,H,undefined,QUALITY==='max'?'NONE':'FAST');a++;await new Promise(r=>setTimeout(r,QUALITY==='max'?200:100))}catch(e){}}u('Saving...');p(100,100);const N=document.title.replace(/[^a-z0-9\\s]/gi,'_').substring(0,30),X=new Date().toISOString().split('T')[0];P.save(N+'_'+X+'.pdf');u('✅ Done! '+a+' pages');d.style.background='green'})();`;
+        
+        let currentQuality = 'good';
+        
+        document.getElementById('downloadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const city = document.getElementById('city').value;
+            const date = document.getElementById('date').value;
+            const quality = document.getElementById('quality').value;
+            
+            currentQuality = quality;
+            
+            // Show instructions
+            document.getElementById('downloadForm').style.display = 'none';
+            document.getElementById('instructions').classList.add('show');
+            
+            // Build URL
+            const url = `https://epaper.jagran.com/mepaper/${date}-11-${city}-edition-${city}-page-1.html`;
+            
+            // Open in new tab after 2 seconds
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 2000);
+        });
+        
+        function copyScript() {
+            // Replace QUALITY placeholder with actual quality
+            const script = downloadScript.replace(/QUALITY/g, `'${currentQuality}'`);
+            
+            navigator.clipboard.writeText(script).then(() => {
+                const status = document.getElementById('copyStatus');
+                status.style.display = 'block';
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                alert('Could not copy. Please manually select and copy the code.');
+            });
+        }
+        
+        function resetForm() {
+            document.getElementById('downloadForm').style.display = 'block';
+            document.getElementById('instructions').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
